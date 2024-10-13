@@ -9,7 +9,7 @@ import svm as svm
 def get_words(message):
     """Get the normalized list of words from a message string.
 
-    This function should split a message into words, normalize them, and return
+    This function splits a message into words, normalize them, and return
     the resulting list. For splitting, you should split on spaces. For normalization,
     you should convert everything to lowercase.
 
@@ -30,7 +30,7 @@ def create_dictionary(messages):
     This function should create a dictionary of word to indices using the provided
     training messages. Use get_words to process each message. 
 
-    Rare words are often not useful for modeling. Please only add words to the dictionary
+    Rare words are often not useful for modeling. We only add words to the dictionary
     if they occur in at least five messages.
 
     Args:
@@ -61,7 +61,7 @@ def create_dictionary(messages):
 def transform_text(messages, word_dictionary):
     """Transform a list of text messages into a numpy array for further processing.
 
-    This function should create a numpy array that contains the number of times each word
+    This function creates a numpy array that contains the number of times each word
     appears in each message. Each row in the resulting array should correspond to each 
     message and each column should correspond to a word.
 
@@ -94,8 +94,6 @@ def fit_naive_bayes_model(matrix, labels):
 
     The function should return the state of that model.
 
-    Feel free to use whatever datatype you wish for the state of the model.
-
     Args:
         matrix: A numpy array containing word counts for the training data
         labels: The binary (0 or 1) labels for that training data
@@ -118,9 +116,6 @@ def fit_naive_bayes_model(matrix, labels):
 def predict_from_naive_bayes_model(model, matrix):
     """Use a Naive Bayes model to compute predictions for a target matrix.
 
-    This function should be able to predict on the models that fit_naive_bayes_model
-    outputs.
-
     Args:
         model: A trained model from fit_naive_bayes_model
         matrix: A numpy array containing word counts
@@ -142,9 +137,6 @@ def predict_from_naive_bayes_model(model, matrix):
 def get_top_five_naive_bayes_words(model, dictionary):
     """Compute the top five words that are most indicative of the spam (i.e positive) class.
 
-    Ues the metric given in 6c as a measure of how indicative a word is.
-    Return the words in sorted form, with the most indicative word first.
-
     Args:
         model: The Naive Bayes model returned from fit_naive_bayes_model
         dictionary: A mapping of word to integer ids
@@ -158,9 +150,6 @@ def get_top_five_naive_bayes_words(model, dictionary):
 
 def compute_best_svm_radius(train_matrix, train_labels, val_matrix, val_labels, radius_to_consider):
     """Compute the optimal SVM radius using the provided training and evaluation datasets.
-
-    You should only consider radius values within the radius_to_consider list.
-    You should use accuracy as a metric for comparing the different radius values.
 
     Args:
         train_matrix: The word counts for the training data
