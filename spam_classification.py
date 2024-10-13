@@ -19,12 +19,9 @@ def get_words(message):
     Returns:
        The list of normalized words from the message.
     """
-
-    # *** START CODE HERE ***
     list_of_words = message.split(' ')
     normalized_list = [word.lower() for word in list_of_words]
     return normalized_list
-    # *** END CODE HERE ***
 
 
 def create_dictionary(messages):
@@ -42,8 +39,6 @@ def create_dictionary(messages):
     Returns:
         A python dict mapping words to integers.
     """
-
-    # *** START CODE HERE ***
     dictionary = dict()
     for message in messages:
         words = get_words(message)
@@ -61,7 +56,6 @@ def create_dictionary(messages):
             key+=1
     
     return mapper
-    # *** END CODE HERE ***
 
 
 def transform_text(messages, word_dictionary):
@@ -81,7 +75,6 @@ def transform_text(messages, word_dictionary):
     Returns:
         A numpy array marking the words present in each message.
     """
-    # *** START CODE HERE ***
     n = len(messages)
     m = max(list(word_dictionary.values()))
     matrix = np.zeros((n,m+1), dtype=int)
@@ -92,7 +85,6 @@ def transform_text(messages, word_dictionary):
                 matrix[pos][word_dictionary[word]]+=1
 
     return matrix
-    # *** END CODE HERE ***
 
 
 def fit_naive_bayes_model(matrix, labels):
@@ -110,8 +102,6 @@ def fit_naive_bayes_model(matrix, labels):
 
     Returns: The trained model
     """
-
-    # *** START CODE HERE ***
     phi1 = np.mean(labels)
     phi0 = 1-phi1
     n, m = matrix.shape
@@ -123,7 +113,6 @@ def fit_naive_bayes_model(matrix, labels):
     phix0 +=1 
     phix0 = 1/(m+n) * phix0
     return ((phi0, phi1), (phix0, phix1))
-    # *** END CODE HERE ***
 
 
 def predict_from_naive_bayes_model(model, matrix):
@@ -138,7 +127,6 @@ def predict_from_naive_bayes_model(model, matrix):
 
     Returns: A numpy array containg the predictions from the model
     """
-    # *** START CODE HERE ***
     phi, phix = model
     logit = np.zeros((2,len(matrix)))
     n,m = matrix.shape
@@ -149,7 +137,6 @@ def predict_from_naive_bayes_model(model, matrix):
     prediction = np.greater(logit[1], logit[0])
     prediction.astype(int)
     return prediction
-    # *** END CODE HERE ***
 
 
 def get_top_five_naive_bayes_words(model, dictionary):
@@ -164,12 +151,10 @@ def get_top_five_naive_bayes_words(model, dictionary):
 
     Returns: The top five most indicative words in sorted order with the most indicative first
     """
-    # *** START CODE HERE ***
     phi, phix = model
     indicativeness = np.log(phix[1]) - np.log(phix[0])
     indicators = np.argsort(indicativeness)[-5:][::-1]
     return [list(dictionary.keys())[list(dictionary.values()).index(code)] for code in indicators]
-    # *** END CODE HERE ***
 
 def compute_best_svm_radius(train_matrix, train_labels, val_matrix, val_labels, radius_to_consider):
     """Compute the optimal SVM radius using the provided training and evaluation datasets.
@@ -187,7 +172,6 @@ def compute_best_svm_radius(train_matrix, train_labels, val_matrix, val_labels, 
     Returns:
         The best radius which maximizes SVM accuracy.
     """
-    # *** START CODE HERE ***
     maxacc=0
     maxradius = radius_to_consider[0]
     for radius in radius_to_consider:
@@ -196,8 +180,6 @@ def compute_best_svm_radius(train_matrix, train_labels, val_matrix, val_labels, 
             maxradius=radius
             maxacc=accuracy
     return maxradius
-            
-    # *** END CODE HERE ***
 
 
 def main():
